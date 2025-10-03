@@ -19,6 +19,7 @@ brew install mole
 ```
 
 **Usage:**
+
 ```bash
 mole              # Interactive main menu
 mole clean        # System cleanup
