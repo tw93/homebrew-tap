@@ -15,7 +15,7 @@ brew tap tw93/tap
 A comprehensive macOS cleanup and application uninstall tool.
 
 ```bash
-brew install mole
+brew install tw93/tap/mole
 ```
 
 **Usage:**
