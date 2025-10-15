@@ -39,8 +39,7 @@ class Mole < Formula
         mo uninstall      # Remove applications
         mo analyze        # Disk space explorer
 
-      Update functionality is disabled when installed via Homebrew.
-      To update, use: brew upgrade mole
+      To update Mole, use: mo update
     EOS
   end
 
