@@ -1,8 +1,8 @@
 class Mole < Formula
   desc "Comprehensive macOS cleanup and application uninstall tool"
   homepage "https://github.com/tw93/mole"
-  url "https://github.com/tw93/Mole/archive/refs/tags/V1.12.6.tar.gz"
-  sha256 "ea3d2c87a0dbd22f909b47e40c59599322216a21ac455c4c94922f3a718f1dd9"
+  url "https://github.com/tw93/Mole/archive/refs/tags/V1.12.10.tar.gz"
+  sha256 "e739898c40cf6a37a2c242e7c42fc54a678f93b6d2a29a39ad5129f64dd84a07"
   license "MIT"
   head "https://github.com/tw93/mole.git", branch: "main"
 
