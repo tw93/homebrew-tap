@@ -8,8 +8,9 @@ class Mole < Formula
 
   # Requires macOS-specific features
   depends_on :macos
-  # Go is optional - only needed if pre-built binaries are unavailable
-  depends_on "go" => [:optional, :build]
+  # Go is required for building (auto-installed by Homebrew)
+  # V1.16.2+ will use pre-built binaries, but Go ensures fallback always works
+  depends_on "go" => :build
 
   # Pre-built binaries (available starting from V1.16.2)
   resource "binaries" do
@@ -45,16 +46,9 @@ class Mole < Formula
 
     # Fallback: build from source if binaries not available
     unless binaries_available
-      if which("go").nil?
-        odie <<~EOS
-          Go is required to build from source but was not found.
-          Please install Go with: brew install go
-        EOS
-      end
-
+      ohai "Building binaries from source using Go"
       system "go", "build", "-ldflags=-s -w", "-o", "bin/analyze-go", "./cmd/analyze"
       system "go", "build", "-ldflags=-s -w", "-o", "bin/status-go", "./cmd/status"
-      ohai "Built binaries from source using Go"
     end
 
     # Install all library files to libexec
