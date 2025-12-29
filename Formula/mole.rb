@@ -8,8 +8,13 @@ class Mole < Formula
 
   # Requires macOS-specific features
   depends_on :macos
+  depends_on "go" => :build
 
   def install
+    # Build Go binaries (installed into libexec/bin)
+    system "go", "build", "-ldflags=-s -w", "-o", "bin/analyze-go", "./cmd/analyze"
+    system "go", "build", "-ldflags=-s -w", "-o", "bin/status-go", "./cmd/status"
+
     # Install all library files to libexec
     libexec.install "bin", "lib"
 
