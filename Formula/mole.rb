@@ -9,47 +9,16 @@ class Mole < Formula
   # Requires macOS-specific features
   depends_on :macos
   # Go is required for building (auto-installed by Homebrew)
-  # V1.16.2+ will use pre-built binaries, but Go ensures fallback always works
   depends_on "go" => :build
 
-  # Pre-built binaries (available starting from V1.16.2)
-  resource "binaries" do
-    on_arm do
-      url "https://github.com/tw93/mole/releases/download/V1.16.1/binaries-darwin-arm64.tar.gz"
-      sha256 "0000000000000000000000000000000000000000000000000000000000000000" # Placeholder, will be updated by workflow
-    end
-
-    on_intel do
-      url "https://github.com/tw93/mole/releases/download/V1.16.1/binaries-darwin-amd64.tar.gz"
-      sha256 "0000000000000000000000000000000000000000000000000000000000000000" # Placeholder, will be updated by workflow
-    end
-  end
+  # Note: Pre-built binaries via resource will be enabled in V1.16.2+
+  # Currently using go build approach for reliability
 
   def install
-    # Detect architecture
-    arch_suffix = Hardware::CPU.arm? ? "arm64" : "amd64"
-
-    # Try to use pre-built binaries first (faster, no Go required)
-    binaries_available = false
-    begin
-      resource("binaries").stage do
-        ohai "Using pre-built binaries (#{arch_suffix})"
-        (buildpath/"bin").install "analyze-darwin-#{arch_suffix}" => "analyze-go"
-        (buildpath/"bin").install "status-darwin-#{arch_suffix}" => "status-go"
-        binaries_available = true
-      end
-    rescue => e
-      # Resource not available (e.g., old version or download failed)
-      ohai "Pre-built binaries unavailable, building from source..."
-      opoo e.message if verbose?
-    end
-
-    # Fallback: build from source if binaries not available
-    unless binaries_available
-      ohai "Building binaries from source using Go"
-      system "go", "build", "-ldflags=-s -w", "-o", "bin/analyze-go", "./cmd/analyze"
-      system "go", "build", "-ldflags=-s -w", "-o", "bin/status-go", "./cmd/status"
-    end
+    # Build Go binaries from source
+    # Future: V1.16.2+ will use pre-built binaries via resource mechanism
+    system "go", "build", "-ldflags=-s -w", "-o", "bin/analyze-go", "./cmd/analyze"
+    system "go", "build", "-ldflags=-s -w", "-o", "bin/status-go", "./cmd/status"
 
     # Install all library files to libexec
     libexec.install "bin", "lib"
