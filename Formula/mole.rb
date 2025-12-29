@@ -14,19 +14,21 @@ class Mole < Formula
   def install
     # Detect architecture
     arch_suffix = Hardware::CPU.arm? ? "arm64" : "amd64"
-    version_tag = "V#{version}"
+    # Extract version tag from the source URL to ensure consistency
+    # URL format: https://github.com/tw93/Mole/archive/refs/tags/V1.16.1.tar.gz
+    version_tag = stable.url.match(%r{/tags/(V[\d.]+)\.tar\.gz})[1]
 
     # Try downloading pre-built binaries first (faster and no Go required)
     download_success = true
 
     ["analyze", "status"].each do |bin_name|
-      url = "https://github.com/tw93/mole/releases/download/#{version_tag}/#{bin_name}-darwin-#{arch_suffix}"
+      binary_url = "https://github.com/tw93/mole/releases/download/#{version_tag}/#{bin_name}-darwin-#{arch_suffix}"
       target = "bin/#{bin_name}-go"
 
       system "mkdir", "-p", "bin"
 
       # Attempt download with generous timeout
-      if system "curl", "-fsSL", "--connect-timeout", "10", "--max-time", "60", "-o", target, url
+      if system "curl", "-fsSL", "--connect-timeout", "10", "--max-time", "60", "-o", target, binary_url
         # Verify downloaded file is valid (>100KB sanity check)
         if File.exist?(target) && File.size(target) > 100_000
           ohai "Downloaded pre-built #{bin_name} binary (#{arch_suffix})"
