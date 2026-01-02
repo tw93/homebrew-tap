@@ -8,19 +8,17 @@ class Mole < Formula
 
   # Requires macOS-specific features
   depends_on :macos
-  # Go is required for fallback building (auto-installed by Homebrew)
-  depends_on "go" => :build
 
-  # Pre-built binaries (faster installation, ~2s vs ~30s)
+  # Pre-built binaries
   resource "binaries" do
     on_arm do
-      url "https://github.com/tw93/mole/releases/download/V1.16.1/binaries-darwin-arm64.tar.gz"
-      sha256 "eb25d1910c956365edf2406fde41cbc64db1280d7f2ab46c25363ede08a02073"
+      url "https://github.com/tw93/mole/releases/download/V1.17.0/binaries-darwin-arm64.tar.gz"
+      sha256 "833ffe65e003fe41b4975d266fcf19b860d8ed2a8aff5a7dafad60f1be48f1ad"
     end
 
     on_intel do
-      url "https://github.com/tw93/mole/releases/download/V1.16.1/binaries-darwin-amd64.tar.gz"
-      sha256 "2d855d2f6fd8ba865e16dfe78842fe05682641f2871e78dccc7f514f2e4cc72d"
+      url "https://github.com/tw93/mole/releases/download/V1.17.0/binaries-darwin-amd64.tar.gz"
+      sha256 "1213952ad3e302da6d99b92c84ffa1fce7b44a6f77b4484101498b0bc40d0160"
     end
   end
 
@@ -28,26 +26,11 @@ class Mole < Formula
     # Detect architecture
     arch_suffix = Hardware::CPU.arm? ? "arm64" : "amd64"
 
-    # Try to use pre-built binaries first (faster, ~2s)
-    binaries_available = false
-    begin
-      resource("binaries").stage do
-        ohai "Using pre-built binaries (#{arch_suffix})"
-        (buildpath/"bin").install "analyze-darwin-#{arch_suffix}" => "analyze-go"
-        (buildpath/"bin").install "status-darwin-#{arch_suffix}" => "status-go"
-        binaries_available = true
-      end
-    rescue => e
-      # Resource download failed, fallback to build
-      ohai "Pre-built binaries unavailable, building from source..."
-      opoo e.message if verbose?
-    end
-
-    # Fallback: build from source if binaries not available (~30s)
-    unless binaries_available
-      ohai "Building binaries from source using Go"
-      system "go", "build", "-ldflags=-s -w", "-o", "bin/analyze-go", "./cmd/analyze"
-      system "go", "build", "-ldflags=-s -w", "-o", "bin/status-go", "./cmd/status"
+    # Use pre-built binaries
+    resource("binaries").stage do
+      ohai "Using pre-built binaries (#{arch_suffix})"
+      (buildpath/"bin").install "analyze-darwin-#{arch_suffix}" => "analyze-go"
+      (buildpath/"bin").install "status-darwin-#{arch_suffix}" => "status-go"
     end
 
     # Install all library files to libexec
