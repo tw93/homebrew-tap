@@ -50,6 +50,9 @@ class Mole < Formula
               "SCRIPT_DIR=\"#{bin}\""
 
     bin.install "mo"
+
+    # Generate shell completions
+    generate_completions_from_executable(bin/"mole", "completion")
   end
 
   def caveats
