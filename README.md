@@ -27,16 +27,35 @@ mole uninstall    # Remove applications
 mole --help       # Show help
 ```
 
+## Available Casks
+
+### [Kaku](https://github.com/tw93/Kaku)
+
+macOS-native terminal emulator optimized for AI coding workflows.
+
+```bash
+brew install --cask tw93/tap/kaku
+```
+
+**Usage:**
+
+```bash
+kaku start
+kaku update
+```
+
 ## Updating
 
 ```bash
 brew update
 brew upgrade mole  # or any other formula
+brew upgrade --cask tw93/tap/kaku
 ```
 
 ## Uninstalling
 
 ```bash
 brew uninstall mole
+brew uninstall --cask tw93/tap/kaku
 brew untap tw93/tap
 ```
