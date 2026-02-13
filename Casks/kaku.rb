@@ -8,7 +8,7 @@ cask "kaku" do
   desc "A fast, out-of-the-box terminal built for AI coding"
   homepage "https://github.com/tw93/Kaku"
 
-  deprecate! date: "2025-02-13", because: "renamed to 'kakuterm'", replacement_cask: "tw93/tap/kakuterm"
+  deprecate! date: "2025-02-13", because: "renamed to 'kakuku'", replacement_cask: "tw93/tap/kakuku"
 
   auto_updates true
 

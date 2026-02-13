@@ -1,4 +1,4 @@
-cask "kakuterm" do
+cask "kakuku" do
   version "0.2.0"
   sha256 "9dd01fac2df72578ca0ecb243cbf3c7964a6b8c9701c6eabcd57cfef70d4ec72"
 
