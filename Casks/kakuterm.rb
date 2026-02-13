@@ -1,4 +1,4 @@
-cask "kaku" do
+cask "kakuterm" do
   version "0.2.0"
   sha256 "9dd01fac2df72578ca0ecb243cbf3c7964a6b8c9701c6eabcd57cfef70d4ec72"
 
@@ -8,7 +8,7 @@ cask "kaku" do
   desc "Terminal emulator optimized for AI coding workflows"
   homepage "https://github.com/tw93/Kaku"
 
-  deprecate! date: "2025-02-13", because: "renamed to 'kakuterm'", replacement_cask: "tw93/tap/kakuterm"
+  conflicts_with cask: "kaku"
 
   auto_updates true
 
