@@ -5,7 +5,7 @@ cask "kaku" do
   url "https://github.com/tw93/Kaku/releases/download/V#{version}/Kaku.dmg",
       verified: "github.com/tw93/Kaku/"
   name "Kaku"
-  desc "Terminal emulator optimized for AI coding workflows"
+  desc "A fast, out-of-the-box terminal built for AI coding"
   homepage "https://github.com/tw93/Kaku"
 
   deprecate! date: "2025-02-13", because: "renamed to 'kakuterm'", replacement_cask: "tw93/tap/kakuterm"
