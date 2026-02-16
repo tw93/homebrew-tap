@@ -1,0 +1,28 @@
+name: Bump kakuku
+
+on:
+  repository_dispatch:
+    types: [kaku_release_published]
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Update kakuku.rb
+        run: |
+          version="${{ github.event.client_payload.version }}"
+          sha256="${{ github.event.client_payload.sha256 }}"
+
+          sed -i "s/version \"[^\"]*\"/version \"${version}\"/" Casks/kakuku.rb
+          sed -i "s/sha256 \"[^\"]*\"/sha256 \"${sha256}\"/" Casks/kakuku.rb
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Casks/kakuku.rb
+          git commit -m "kakuku ${{ github.event.client_payload.version }}"
+          git push
