@@ -12,12 +12,12 @@ class Mole < Formula
   # Pre-built binaries
   resource "binaries" do
     on_arm do
-      url "https://github.com/tw93/mole/releases/download/V1.32.0/binaries-darwin-arm64.tar.gz"
+      url "https://github.com/tw93/Mole/releases/download/V1.32.0/binaries-darwin-arm64.tar.gz"
       sha256 "854b8b4967e9fbc6c263455a56bf618a2d8ffe8b74492eb50bab2c2311aa29e0"
     end
 
     on_intel do
-      url "https://github.com/tw93/mole/releases/download/V1.32.0/binaries-darwin-amd64.tar.gz"
+      url "https://github.com/tw93/Mole/releases/download/V1.32.0/binaries-darwin-amd64.tar.gz"
       sha256 "18caa8a9d10d9b7ae08d759f1e5d10708eb85161efcadf32719bf5f7121ea0dc"
     end
   end
