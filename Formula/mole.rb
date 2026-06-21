@@ -1,8 +1,8 @@
 class Mole < Formula
   desc "Comprehensive macOS cleanup and application uninstall tool"
   homepage "https://github.com/tw93/mole"
-  url "https://github.com/tw93/Mole/archive/refs/tags/V1.43.1.tar.gz"
-  sha256 "352b2ca03c07d938bf2eb4a8d592ea92e25f6456499f7430d7c87102f3c83f13"
+  url "https://github.com/tw93/Mole/archive/refs/tags/V1.44.0.tar.gz"
+  sha256 "a3934d8cff7b292c173eb949dee094a464d924f9d69ede678975dbb8145c8fbe"
   license "MIT"
   head "https://github.com/tw93/mole.git", branch: "main"
 
@@ -12,13 +12,13 @@ class Mole < Formula
   # Pre-built binaries
   resource "binaries" do
     on_arm do
-      url "https://github.com/tw93/Mole/releases/download/V1.43.1/binaries-darwin-arm64.tar.gz"
-      sha256 "c98c34ea5b6e968ca59187b22e49ebda90e7ca7d786d8576a98e8128a82e1bd5"
+      url "https://github.com/tw93/Mole/releases/download/V1.44.0/binaries-darwin-arm64.tar.gz"
+      sha256 "4477f353f6b77c4cc4419134fb13131c0ca9898e12a3857c807c241242837544"
     end
 
     on_intel do
-      url "https://github.com/tw93/Mole/releases/download/V1.43.1/binaries-darwin-amd64.tar.gz"
-      sha256 "a5ca0aaad301b932f99f446f0bf806308ccae5c2e75b70ccca3c7de26263bc5a"
+      url "https://github.com/tw93/Mole/releases/download/V1.44.0/binaries-darwin-amd64.tar.gz"
+      sha256 "adc921788cc4b94bfb82e82b9c15c3da8c652791f496239340e8076e784b6bc5"
     end
   end
 
