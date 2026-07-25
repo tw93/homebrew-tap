@@ -8,24 +8,15 @@ Personal Homebrew tap for [@tw93](https://github.com/tw93)'s projects.
 brew tap tw93/tap
 ```
 
-## Available Formulae
+## Migrated Formulae
 
-### [Mole](https://github.com/tw93/mole)
-
-A comprehensive macOS cleanup and application uninstall tool.
+[Mole](https://github.com/tw93/mole) is now distributed through Homebrew Core:
 
 ```bash
-brew install tw93/tap/mole
+brew install mole
 ```
 
-**Usage:**
-
-```bash
-mole              # Interactive main menu
-mole clean        # System cleanup
-mole uninstall    # Remove applications
-mole --help       # Show help
-```
+Existing `tw93/tap/mole` installations migrate to Homebrew Core during `brew update`.
 
 ## Available Casks
 
@@ -48,14 +39,12 @@ kaku update
 
 ```bash
 brew update
-brew upgrade mole  # or any other formula
 brew upgrade --cask tw93/tap/kaku
 ```
 
 ## Uninstalling
 
 ```bash
-brew uninstall mole
 brew uninstall --cask tw93/tap/kaku
 brew untap tw93/tap
 ```
