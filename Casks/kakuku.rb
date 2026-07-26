@@ -1,6 +1,6 @@
 cask "kakuku" do
-  version "0.15.0"
-  sha256 "f1127c7fb842b9996558066fa5f136dad151c2b2359478b30e1684f2fc571ea4"
+  version "0.16.0"
+  sha256 "ef3bc9d9c28672562f3f9a9e1a6e68b0cb1d685760bccf48caba89724204d827"
 
   url "https://github.com/tw93/Kaku/releases/download/V#{version}/Kaku.dmg",
       verified: "github.com/tw93/Kaku/"
