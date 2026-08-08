@@ -25,7 +25,7 @@ Existing `tw93/tap/mole` installations migrate to Homebrew Core during `brew upd
 macOS-native terminal emulator optimized for AI coding workflows.
 
 ```bash
-brew install --cask tw93/tap/kaku
+brew install --cask tw93/tap/kakuku
 ```
 
 **Usage:**
@@ -39,12 +39,12 @@ kaku update
 
 ```bash
 brew update
-brew upgrade --cask tw93/tap/kaku
+brew upgrade --cask tw93/tap/kakuku
 ```
 
 ## Uninstalling
 
 ```bash
-brew uninstall --cask tw93/tap/kaku
+brew uninstall --cask tw93/tap/kakuku
 brew untap tw93/tap
 ```
