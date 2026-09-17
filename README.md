@@ -2,8 +2,6 @@
 
 Personal Homebrew tap for [@tw93](https://github.com/tw93)'s projects.
 
-## Installation
-
 ```bash
 brew tap tw93/tap
 ```
@@ -18,31 +16,31 @@ brew install mole
 
 Existing `tw93/tap/mole` installations migrate to Homebrew Core during `brew update`.
 
-## Available Casks
+## Kaku
 
-### [Kaku](https://github.com/tw93/Kaku)
-
-macOS-native terminal emulator optimized for AI coding workflows.
+[Kaku](https://github.com/tw93/Kaku) is now on official Homebrew. New installs should use that cask:
 
 ```bash
-brew install --cask tw93/tap/kakuku
+brew install --cask kaku
 ```
 
-**Usage:**
+This tap still ships `kakuku` for people who installed Kaku before the official cask existed. Those installs keep updating from this tap, including `brew upgrade --cask tw93/tap/kakuku` and `kaku update`.
+
+To move an existing tap install to the official cask:
 
 ```bash
-kaku start
-kaku update
+brew uninstall --cask tw93/tap/kakuku
+brew install --cask kaku
 ```
 
-## Updating
+Do not install both. The tap cask conflicts with official `kaku`.
+
+### Keep using the tap
 
 ```bash
 brew update
 brew upgrade --cask tw93/tap/kakuku
 ```
-
-## Uninstalling
 
 ```bash
 brew uninstall --cask tw93/tap/kakuku
