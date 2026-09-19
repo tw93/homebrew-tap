@@ -4,6 +4,11 @@ on:
   repository_dispatch:
     types: [kaku_release_published]
 
+# Two dispatches for the same cask must not race the same file.
+concurrency:
+  group: bump-kakuku
+  cancel-in-progress: false
+
 jobs:
   bump:
     runs-on: ubuntu-latest
@@ -14,17 +19,40 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Update kakuku.rb
+        env:
+          # Read through the environment, never interpolated into the shell body:
+          # the payload comes from outside this repo and would otherwise run as code.
+          VERSION: ${{ github.event.client_payload.version }}
+          SHA256: ${{ github.event.client_payload.sha256 }}
         run: |
-          version="${{ github.event.client_payload.version }}"
-          sha256="${{ github.event.client_payload.sha256 }}"
+          set -euo pipefail
+          [[ "$VERSION" =~ ^[0-9]+(\.[0-9]+)*$ ]] || { echo "bad version: $VERSION"; exit 1; }
+          [[ "$SHA256" =~ ^[0-9a-f]{64}$ ]] || { echo "bad sha256"; exit 1; }
 
-          sed -i "s/version \"[^\"]*\"/version \"${version}\"/" Casks/kakuku.rb
-          sed -i "s/sha256 \"[^\"]*\"/sha256 \"${sha256}\"/" Casks/kakuku.rb
+          sed -i "s/version \"[^\"]*\"/version \"${VERSION}\"/" Casks/kakuku.rb
+          sed -i "s/sha256 \"[^\"]*\"/sha256 \"${SHA256}\"/" Casks/kakuku.rb
+
+          grep -q "version \"${VERSION}\"" Casks/kakuku.rb || { echo "version did not land"; exit 1; }
+          grep -q "sha256 \"${SHA256}\"" Casks/kakuku.rb || { echo "sha256 did not land"; exit 1; }
 
       - name: Commit and push
+        env:
+          VERSION: ${{ github.event.client_payload.version }}
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add Casks/kakuku.rb
-          git commit -m "kakuku ${{ github.event.client_payload.version }}"
-          git push
+          # A re-published release or a duplicated dispatch is a no-op, not a failure.
+          if git diff --cached --quiet; then
+            echo "kakuku.rb already at ${VERSION}, nothing to commit"
+            exit 0
+          fi
+          git commit -m "kakuku ${VERSION}"
+          for attempt in 1 2 3; do
+            git push && exit 0
+            echo "push rejected, rebasing (attempt ${attempt})"
+            git pull --rebase --autostash origin main
+          done
+          echo "push failed after 3 attempts"
+          exit 1
