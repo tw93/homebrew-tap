@@ -37,6 +37,14 @@ Do not install both. The tap cask conflicts with official `kaku`.
 
 ### Keep using the tap
 
+Homebrew 6 and later require trust for non-official taps. If Homebrew reports this cask as untrusted, trust only the Kaku cask before upgrading:
+
+```bash
+brew trust --cask tw93/tap/kakuku
+```
+
+New installs using the official `kaku` cask do not need this step. See [Homebrew tap trust](https://docs.brew.sh/Tap-Trust) for details.
+
 ```bash
 brew update
 brew upgrade --cask tw93/tap/kakuku
