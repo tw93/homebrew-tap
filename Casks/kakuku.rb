@@ -4,12 +4,12 @@ cask "kakuku" do
 
   url "https://github.com/tw93/Kaku/releases/download/V#{version}/Kaku.dmg"
   name "Kaku"
-  desc "A fast, out-of-the-box terminal built for AI coding"
+  desc "Fast, out-of-the-box terminal built for AI coding"
   homepage "https://github.com/tw93/Kaku"
 
-  conflicts_with cask: "kaku"
-
   auto_updates true
+  conflicts_with cask: "kaku"
+  depends_on :macos
 
   app "Kaku.app"
   binary "#{appdir}/Kaku.app/Contents/MacOS/kaku", target: "kaku"
